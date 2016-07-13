@@ -1,0 +1,32 @@
+var friends = [
+	{
+	    "username": "ajay",
+	    "password": "qburst"
+	}, 
+	{
+	    "username": "abilash",
+	    "password": "kalari"
+	}, 
+	{
+	    "username": "vishnu",
+	    "password": "sarasu"
+	}];
+
+function login() {
+    var a, b,x,flag,i;
+    flag=false;
+    var index=-1;
+    a = document.getElementById("user").value;
+    b = document.getElementById("pwd").value;
+    for (i = 0; i < friends.length; i++) {
+        if (a == friends[i].username && b == friends[i].password) {
+            flag=true;
+        }
+    }
+    if (flag == true) {
+        alert("welcome")
+    } else {
+        alert("invalid username or password")
+    }
+
+}
