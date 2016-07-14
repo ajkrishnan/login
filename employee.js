@@ -35,8 +35,12 @@ var employees =
         "Salary": 44210
     }
 ];
-function populateTable(filter) {
-    var name = document.getElementById('ename').value,
+function start() {
+    populateTable('initial');
+    document.getElementsByTagName("th").onclick = populateTable('sort');
+}
+function populateTable(conduct) {
+    var name = document.getElementById('ename').value;
         name = name.toLowerCase();
 
     var col = [];
@@ -55,12 +59,36 @@ function populateTable(filter) {
         th.innerHTML = col[i];
         tr.appendChild(th);
     }
+    if (conduct == "sort"){console.log("aj")
+        var employeeList =[];
+        var sortTable = document.getElementById("demo");
+        for ( var c = 1; c < sortTable.rows.length; c++ ) {
+            employeeList.push({
+                Name:sortTable.rows[i].cells[0].innerHTML,
+                Salary:sortTable.rows[i].cells[1].innerHTML
+            });
+        }
+        employeeList.sort(function(a, b) {
+            var nameA = a.Name.toLowerCase();
+            var nameB = b.Name.toLowerCase();
+            return (nameA < nameB) ? -1 : ((nameA > nameB) ? 1 : 0); 
+        })
+        for (var k = 0; k < employeeList.length; k++){
+            var newname = employeeList[k].Name;
+                newname = newname.toLowerCase();
+                tr = sortTable.insertRow(-1);
+                for (var l=0; l < col.length; l++) {
+                    var newTabCell = tr.insertCell(-1);
+                    newTabCell.innerHTML = employeeList[k][col[l]];
+                }
+        }
+    }  
     var sum = 0;
     for (var i = 0; i < employees.length; i++) {
         var empName = employees[i].Name,
             empName = empName.toLowerCase();
 
-        if ((filter && empName.search(name) > -1) || !filter) {
+         if ((conduct == "filter" && empName.search(name) > -1) || conduct== "initial") {
             tr = table.insertRow(-1);
             sum = sum + employees[i].Salary;
             for (var j = 0; j < col.length; j++) {

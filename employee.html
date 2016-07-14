@@ -9,10 +9,10 @@
     <script type="text/javascript" src="employee.js"></script>
 </head>
 
-<body onload="populateTable()">
+<body onload="start()">
     <header>
         <h1>ABC COMPANY</h1>
-        <input type ="text" name ="search" placeholder ="Search.." class ="search" id ="ename" onkeyup ="populateTable(true);">
+        <input type ="text" name ="search" placeholder ="Search.." class ="search" id ="ename" onkeyup ="populateTable('filter');">
     </header>
     <section id="main-container">
         <div id="showData"></div>
