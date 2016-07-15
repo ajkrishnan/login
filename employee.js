@@ -1,48 +1,39 @@
-var employees = 
-[
+var employees = [
     {
-        "Name": "Ajay",
-        "Salary": 4125
+    "Name": "Ajay",
+    "Salary": 4125
     }, 
     {
-
-        "Name": "Seena",
-        "Salary": 1356
+    "Name": "Seena",
+    "Salary": 1356
+    },
+    {
+    "Name": "Meena",
+    "Salary": 19056
     },
      {
-
-        "Name": "Meena",
-        "Salary": 19056
-    },
-     {
-
-        "Name": "Robert",
-        "Salary": 12356
+    "Name": "Robert",
+    "Salary": 12356
     }, 
     {
-
-        "Name": "Wade",
-        "Salary": 22356
+    "Name": "Wade",
+    "Salary": 22356
     }, 
     {
-
-        "Name": "Messi",
-        "Salary": 5456
+    "Name": "Messi",
+    "Salary": 5456
     },
-     {
-
-        "Name": "Ann",
-        "Salary": 44210
+    {
+    "Name": "Ann",
+    "Salary": 44210
     }
 ];
 function start() {
     populateTable('initial');
-    document.getElementsByTagName("th").onclick = populateTable('sort');
 }
 function populateTable(conduct) {
     var name = document.getElementById('ename').value;
         name = name.toLowerCase();
-
     var col = [];
     for (var i = 0; i < employees.length; i++) {
         for (var key in employees[i]) {
@@ -59,13 +50,13 @@ function populateTable(conduct) {
         th.innerHTML = col[i];
         tr.appendChild(th);
     }
-    if (conduct == "sort"){console.log("aj")
+    if (conduct == "sort"){
         var employeeList =[];
         var sortTable = document.getElementById("demo");
-        for ( var c = 1; c < sortTable.rows.length; c++ ) {
+        for ( var c = 1; c < sortTable.rows.length-1; c++ ) {
             employeeList.push({
-                Name:sortTable.rows[i].cells[0].innerHTML,
-                Salary:sortTable.rows[i].cells[1].innerHTML
+                Name:sortTable.rows[c].cells[0].innerHTML,
+                Salary:sortTable.rows[c].cells[1].innerHTML
             });
         }
         employeeList.sort(function(a, b) {
@@ -77,23 +68,25 @@ function populateTable(conduct) {
             var newname = employeeList[k].Name;
                 newname = newname.toLowerCase();
                 tr = sortTable.insertRow(-1);
-                for (var l=0; l < col.length; l++) {
-                    var newTabCell = tr.insertCell(-1);
-                    newTabCell.innerHTML = employeeList[k][col[l]];
-                }
+            for (var l=0; l < col.length; l++) {
+                var newTabCell = tr.insertCell(-1);
+                newTabCell.innerHTML = employeeList[k][col[l]];
+            } 
         }
-    }  
+    }
+    else {
+            employeeList = employees;
+    }        
     var sum = 0;
-    for (var i = 0; i < employees.length; i++) {
-        var empName = employees[i].Name,
+    for (var i = 0; i < employeeList.length; i++) {
+        var empName = employeeList[i].Name,
             empName = empName.toLowerCase();
-
-         if ((conduct == "filter" && empName.search(name) > -1) || conduct== "initial") {
+        if ((conduct == "filter" && empName.search(name) > -1) || conduct== "initial" || conduct== "sort" ) { 
             tr = table.insertRow(-1);
-            sum = sum + employees[i].Salary;
+            sum = sum + parseFloat(employeeList[i].Salary);
             for (var j = 0; j < col.length; j++) {
                 var tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = employees[i][col[j]];
+                tabCell.innerHTML = employeeList[i][col[j]];
             }
         }
     }
@@ -105,4 +98,5 @@ function populateTable(conduct) {
     tablCell.innerHTML = "TOTAL";
     var cellNext = tr.insertCell(-1);
     cellNext.innerHTML = "$" + sum;
+    document.querySelector('th').addEventListener('click',  populateTable('sort'));
 }
